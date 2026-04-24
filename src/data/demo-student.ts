@@ -1,0 +1,23 @@
+/** Shared mock identity for client demo — keep in sync across portal screens. */
+export const DEMO_STUDENT = {
+  name: "Rajesh Kumar",
+  enrollmentNo: "0101CS221001",
+  branch: "Computer Science & Engineering",
+  programme: "B.E.",
+  semester: "6th",
+  semesterCode: "VI" as const,
+  academicYear: "2025-26",
+  college: "Government Engineering College, Bhopal",
+  section: "A",
+  batch: "2022–26",
+  email: "rajesh.kumar.stu@gecb.ac.in",
+  mobile: "98765 43210",
+  dateOfBirth: "12 Aug 2004",
+  gender: "Male",
+  category: "General",
+  bloodGroup: "B+",
+  aadhaarLast4: "•••• 4512",
+  address: "H.No. 42, Kolar Road, Bhopal — 462042",
+  guardianName: "Smt. Sunita Kumar",
+  guardianMobile: "98260 11002",
+} as const;

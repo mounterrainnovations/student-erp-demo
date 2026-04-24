@@ -1,0 +1,158 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #007B8A;
+  --color-primary-dark: #005f6b;
+  --color-accent: #00C2D4;
+  --color-bg: #f8f9fa;
+  --color-surface: #ffffff;
+  --color-text: #1a1a2e;
+  --color-muted: #6b7280;
+  --color-border: #e0e0e0;
+  --color-success: #1a7a4a;
+  --color-success-bg: #d4f5e9;
+  --color-navy: #1a1a2e;
+
+  --font-sans: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+}
+
+/* ── Sidebar scrollbar ─────────────────────────────────────────────── */
+.sidebar-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent;
+}
+.sidebar-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+.sidebar-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.sidebar-scroll::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+/* ── Sidebar links ─────────────────────────────────────────────────── */
+.sidebar-link:hover {
+  background: #e6f7f9 !important;
+  color: #007B8A !important;
+  border-left-color: transparent !important;
+}
+.sidebar-link:hover svg {
+  color: #007B8A !important;
+}
+
+/* ── Nav links — underline slide-in ───────────────────────────────── */
+.nav-link {
+  position: relative;
+}
+.nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #00C2D4;
+  transition: width 0.2s ease;
+}
+.nav-link:hover {
+  color: #00C2D4 !important;
+}
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* ── Header logout button hover ────────────────────────────────────── */
+.header-logout:hover {
+  background: rgba(255, 255, 255, 0.15) !important;
+}
+
+/* ── Welcome bar links ─────────────────────────────────────────────── */
+.welcome-link-dashboard:hover {
+  text-decoration: underline;
+}
+.welcome-link-logout:hover {
+  color: #ef4444 !important;
+}
+
+/* ── Notice row hover ──────────────────────────────────────────────── */
+.notice-row:hover {
+  background: #f4fafb !important;
+}
+.notice-row:hover .notice-pdf-icon {
+  opacity: 1 !important;
+}
+.notice-link:hover {
+  color: #007B8A !important;
+  text-decoration: underline;
+}
+
+/* ── Student table row hover ───────────────────────────────────────── */
+.student-table-row {
+  transition: background 0.15s ease;
+}
+.student-table-row:hover td {
+  background: #e6f7f9 !important;
+}
+
+/* ── Exam form table row hover ─────────────────────────────────────── */
+.exam-table-row {
+  transition: background 0.15s ease;
+}
+.exam-table-row:hover td {
+  background: #e6f7f9 !important;
+}
+
+/* ── Banner dismiss hover ──────────────────────────────────────────── */
+.banner-dismiss:hover {
+  color: #374151 !important;
+}
+
+/* ── Search button hover ───────────────────────────────────────────── */
+.search-btn:not(:disabled):hover {
+  background-color: #005f6b !important;
+}
+
+/* ── Submit button hover ───────────────────────────────────────────── */
+.submit-btn:not(:disabled):hover {
+  background-color: #005f6b !important;
+}
+
+/* ── Animations ────────────────────────────────────────────────────── */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.fade-in-up {
+  animation: fadeInUp 0.3s ease forwards;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

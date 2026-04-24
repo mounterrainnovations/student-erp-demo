@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { TrendingUp, Users, Award, CheckCircle2, XCircle, Briefcase } from "lucide-react";
 import { cardStyle } from "./ExamFormPrerequisites";
 
@@ -119,15 +119,7 @@ const APP_STATUS_STYLES: Record<AppStatus, React.CSSProperties> = {
 
 /* ── Component ───────────────────────────────────────────── */
 export default function PlacementContent() {
-  const [toastVisible, setToastVisible] = useState(false);
-  const [toastMsg, setToastMsg] = useState("");
-
-  const showToast = (msg: string) => {
-    setToastMsg(msg);
-    setToastVisible(true);
-    setTimeout(() => setToastVisible(false), 3500);
-  };
-
+  const router = useRouter();
   const metCount = CRITERIA.filter((c) => c.status === "eligible").length;
 
   return (
@@ -299,7 +291,7 @@ export default function PlacementContent() {
               registration to become fully eligible for drives.
             </span>
             <button
-              onClick={() => showToast("Registration request sent — check your email for next steps")}
+              onClick={() => router.push("/student/placement/apply")}
               className="submit-btn"
               style={{
                 display: "inline-flex",
@@ -317,7 +309,7 @@ export default function PlacementContent() {
                 whiteSpace: "nowrap",
               }}
             >
-              Register for Placement
+              Apply for Placement
             </button>
           </div>
         </div>
@@ -372,7 +364,9 @@ export default function PlacementContent() {
                   <td style={tdStyle}>
                     <button
                       onClick={() =>
-                        showToast(`Registration for ${d.company} submitted successfully`)
+                        router.push(
+                          `/student/placement/apply?company=${encodeURIComponent(d.company)}`
+                        )
                       }
                       style={{
                         backgroundColor: "#e6f7f9",
@@ -387,7 +381,7 @@ export default function PlacementContent() {
                         transition: "background 0.15s",
                       }}
                     >
-                      Register
+                      Apply
                     </button>
                   </td>
                 </tr>
@@ -456,31 +450,6 @@ export default function PlacementContent() {
         </div>
       </div>
 
-      {/* Toast */}
-      {toastVisible && (
-        <div
-          style={{
-            position: "fixed",
-            bottom: 28,
-            right: 28,
-            backgroundColor: "#1a1a2e",
-            color: "#ffffff",
-            padding: "14px 18px",
-            borderRadius: 8,
-            boxShadow: "0 8px 24px rgba(0,0,0,0.18)",
-            fontSize: "0.875rem",
-            fontWeight: 500,
-            display: "flex",
-            alignItems: "center",
-            gap: 10,
-            zIndex: 9999,
-            animation: "fadeInUp 0.25s ease forwards",
-          }}
-        >
-          <CheckCircle2 size={16} color="#00C2D4" />
-          {toastMsg}
-        </div>
-      )}
     </div>
   );
 }

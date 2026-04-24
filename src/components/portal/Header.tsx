@@ -1,15 +1,15 @@
-import Link from "next/link";
-
 interface HeaderProps {
   universityName?: string;
   universitySubtitle?: string;
   lastLogin?: string;
+  studentName?: string;
 }
 
 export default function Header({
   universityName = "Barkatullah Vishwavidyalaya",
   universitySubtitle = "Hoshangabad Road, Bhopal (M.P.) — 462033",
   lastLogin = "24 Apr 2026, 09:41 AM",
+  studentName = "Rajesh Kumar",
 }: HeaderProps) {
   return (
     <header
@@ -52,7 +52,7 @@ export default function Header({
         </span>
       </div>
 
-      {/* Right: last login + logout */}
+      {/* Right: last login + profile avatar */}
       <div className="flex flex-col items-end gap-2 shrink-0">
         <div style={{ textAlign: "right" }}>
           <span
@@ -76,24 +76,6 @@ export default function Header({
             {lastLogin}
           </span>
         </div>
-        <Link
-          href="/logout"
-          className="header-logout"
-          style={{
-            color: "#ffffff",
-            fontSize: "0.8125rem",
-            fontWeight: 500,
-            background: "transparent",
-            border: "1px solid rgba(255,255,255,0.5)",
-            borderRadius: 6,
-            padding: "6px 16px",
-            textDecoration: "none",
-            transition: "background 0.2s ease",
-            whiteSpace: "nowrap",
-          }}
-        >
-          Logout
-        </Link>
       </div>
     </header>
   );

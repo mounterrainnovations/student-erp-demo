@@ -11,7 +11,7 @@ export default function Footer() {
         flexShrink: 0,
       }}
     >
-      © {new Date().getFullYear()} Barkatullah Vishwavidyalaya, Bhopal. All rights reserved.
+      © {new Date().getFullYear()} Barkatullah Vishwavidyalaya, Bhopal. All rights reserved. · Demo by <span style={{ color: "rgba(255,255,255,0.85)", fontWeight: 600 }}>Mounterra Innovations</span>
     </footer>
   );
 }

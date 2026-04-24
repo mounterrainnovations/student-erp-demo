@@ -5,6 +5,8 @@ import { useState } from "react";
 import { usePathname } from "next/navigation";
 import {
   ChevronDown,
+  ChevronLeft,
+  ChevronRight,
   FileText,
   CreditCard,
   GraduationCap,
@@ -25,6 +27,8 @@ import {
   Copy,
   Scroll,
   TrendingUp,
+  LogOut,
+  Briefcase,
 } from "lucide-react";
 
 interface NavLink {
@@ -40,6 +44,13 @@ interface SidebarSection {
 
 const SECTIONS: SidebarSection[] = [
   {
+    title: "Student Profile",
+    links: [
+      { label: "Student Profile", href: "/student/profile", icon: <UserCircle size={15} strokeWidth={1.75} className="shrink-0" /> },
+      { label: "Digital Locker", href: "/student/profile/locker", icon: <HardDrive size={15} strokeWidth={1.75} className="shrink-0" /> },
+    ],
+  },
+  {
     title: "Enrollment Form",
     links: [
       { label: "Fill Enrollment Form", href: "/student/enrollment/fill", icon: <FileText size={15} strokeWidth={1.75} className="shrink-0" /> },
@@ -47,9 +58,9 @@ const SECTIONS: SidebarSection[] = [
     ],
   },
   {
-    title: "Degree",
+    title: "PLACEMENT",
     links: [
-      { label: "Apply For Degree", href: "/student/degree/apply", icon: <GraduationCap size={15} strokeWidth={1.75} className="shrink-0" /> },
+      { label: "Apply for Placement", href: "/student/placement/apply", icon: <Briefcase size={15} strokeWidth={1.75} className="shrink-0" /> },
     ],
   },
   {
@@ -94,13 +105,6 @@ const SECTIONS: SidebarSection[] = [
     title: "Student Attendance",
     links: [
       { label: "View Attendance", href: "/student/attendance", icon: <CheckSquare size={15} strokeWidth={1.75} className="shrink-0" /> },
-    ],
-  },
-  {
-    title: "Student Profile",
-    links: [
-      { label: "Student Profile", href: "/student/profile", icon: <UserCircle size={15} strokeWidth={1.75} className="shrink-0" /> },
-      { label: "Digital Locker", href: "/student/profile/locker", icon: <HardDrive size={15} strokeWidth={1.75} className="shrink-0" /> },
     ],
   },
   {
@@ -149,7 +153,6 @@ function SidebarSection({
         borderTop: isFirst ? "none" : "1px solid #e0e0e0",
       }}
     >
-      {/* Section header button */}
       <button
         onClick={() => setOpen((v) => !v)}
         style={{
@@ -187,7 +190,6 @@ function SidebarSection({
         />
       </button>
 
-      {/* Collapsible links */}
       <div
         style={{
           maxHeight: open ? "500px" : "0",
@@ -228,21 +230,83 @@ function SidebarSection({
 }
 
 export default function Sidebar() {
+  const [collapsed, setCollapsed] = useState(false);
+
   return (
     <aside
-      className="sidebar-scroll"
       style={{
-        width: 260,
-        minWidth: 260,
+        width: collapsed ? 40 : 260,
+        minWidth: collapsed ? 40 : 260,
         backgroundColor: "#f8f9fa",
         borderRight: "1px solid #e0e0e0",
-        overflowY: "auto",
+        overflowX: "hidden",
         height: "100%",
+        transition: "width 0.25s ease, min-width 0.25s ease",
+        display: "flex",
+        flexDirection: "column",
       }}
     >
-      {SECTIONS.map((section, i) => (
-        <SidebarSection key={section.title} section={section} isFirst={i === 0} />
-      ))}
+      {/* Toggle button row */}
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: collapsed ? "center" : "flex-end",
+          padding: "8px 8px",
+          borderBottom: "1px solid #e0e0e0",
+          flexShrink: 0,
+        }}
+      >
+        <button
+          onClick={() => setCollapsed((v) => !v)}
+          title={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+          style={{
+            background: "none",
+            border: "1px solid #e0e0e0",
+            borderRadius: 6,
+            padding: "4px 6px",
+            cursor: "pointer",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            color: "#6b7280",
+            transition: "background 0.15s, color 0.15s",
+          }}
+        >
+          {collapsed ? <ChevronRight size={14} /> : <ChevronLeft size={14} />}
+        </button>
+      </div>
+
+      {/* Nav sections — hidden when collapsed */}
+      <div style={{ flex: 1, overflowY: "auto", overflowX: "hidden" }} className="sidebar-scroll">
+        {!collapsed &&
+          SECTIONS.map((section, i) => (
+            <SidebarSection key={section.title} section={section} isFirst={i === 0} />
+          ))}
+      </div>
+
+      {/* Logout at bottom */}
+      <div style={{ flexShrink: 0, borderTop: "1px solid #e0e0e0" }}>
+        <Link
+          href="/logout"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 8,
+            padding: "12px 16px",
+            color: "#374151",
+            textDecoration: "none",
+            fontSize: "0.8125rem",
+            fontWeight: 500,
+            justifyContent: collapsed ? "center" : "flex-start",
+            transition: "background 0.15s, color 0.15s",
+          }}
+          className="sidebar-logout-link"
+        >
+          <LogOut size={15} strokeWidth={1.75} style={{ flexShrink: 0 }} />
+          {!collapsed && <span>Logout</span>}
+        </Link>
+      </div>
     </aside>
   );
 }

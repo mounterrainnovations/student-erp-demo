@@ -52,20 +52,18 @@ export default function SmartCardViewContent() {
           </div>
         </div>
         <div style={{ background: "#f8f9fa", padding: 20, color: "#1a1a2e" }}>
-          <div
+          <img
+            src="/passport.png"
+            alt={DEMO_STUDENT.name}
             style={{
               width: 72,
-              height: 72,
+              height: 90,
+              objectFit: "cover",
               borderRadius: 8,
-              background: "#e2e8f0",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
+              border: "2px solid #e0e0e0",
               marginBottom: 12,
             }}
-          >
-            <div style={{ fontSize: "0.65rem", textAlign: "center", color: "#64748b", padding: 4 }}>Photo</div>
-          </div>
+          />
           <div style={{ fontSize: "0.95rem", fontWeight: 700 }}>{DEMO_STUDENT.name}</div>
           <div style={{ fontSize: "0.78rem", color: "#6b7280", marginTop: 4 }}>{DEMO_STUDENT.enrollmentNo}</div>
           <div style={{ fontSize: "0.78rem", marginTop: 8 }}>{DEMO_STUDENT.programme} · {DEMO_STUDENT.branch}</div>

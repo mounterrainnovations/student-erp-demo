@@ -9,7 +9,9 @@ import {
   AlertCircle,
   CheckCircle,
   Briefcase,
+  CalendarDays,
 } from "lucide-react";
+import AcademicCalendarModal from "./AcademicCalendarModal";
 
 interface Notification {
   id: number;
@@ -72,6 +74,31 @@ const TYPE_META: Record<
   info:      { color: "#007B8A", Icon: Info },
   placement: { color: "#6366f1", Icon: Briefcase },
 };
+
+function AcademicCalendarButton() {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <button
+        onClick={() => setOpen((v) => !v)}
+        title="Academic Calendar"
+        style={{
+          background: open ? "rgba(255,255,255,0.22)" : "rgba(255,255,255,0.12)",
+          border: "1px solid rgba(255,255,255,0.35)",
+          borderRadius: 8,
+          width: 38, height: 38,
+          display: "flex", alignItems: "center", justifyContent: "center",
+          cursor: "pointer", color: "#ffffff",
+          transition: "background 0.15s",
+          flexShrink: 0,
+        }}
+      >
+        <CalendarDays size={17} strokeWidth={1.75} />
+      </button>
+      {open && <AcademicCalendarModal onClose={() => setOpen(false)} />}
+    </>
+  );
+}
 
 function NotificationBell() {
   const [open, setOpen] = useState(false);
@@ -351,6 +378,32 @@ function NotificationBell() {
   );
 }
 
+/* ── Language Switcher ──────────────────────────────────────────────── */
+function LanguageSwitcher() {
+  return (
+    <div style={{
+      display: "flex",
+      alignItems: "center",
+      gap: 8,
+      color: "rgba(255,255,255,0.6)",
+      fontSize: "0.8125rem",
+      fontWeight: 600,
+      marginRight: 4,
+    }}>
+      <span style={{ color: "#ffffff", cursor: "default" }}>English</span>
+      <span>|</span>
+      <span 
+        title="Coming soon"
+        style={{ cursor: "not-allowed", transition: "color 0.2s" }}
+        onMouseEnter={(e) => e.currentTarget.style.color = "rgba(255,255,255,0.9)"}
+        onMouseLeave={(e) => e.currentTarget.style.color = "rgba(255,255,255,0.6)"}
+      >
+        Hindi
+      </span>
+    </div>
+  );
+}
+
 /* ── Header ─────────────────────────────────────────────────────────── */
 
 interface HeaderProps {
@@ -371,7 +424,7 @@ export default function Header({
       className="w-full flex items-center px-6 shrink-0"
     >
       {/* Logo */}
-      <div className="flex items-center shrink-0">
+      <div className="flex items-center shrink-0" style={{ marginRight: 16 }}>
         <img
           src="/Barkatullah_University_logo.png"
           alt="University Logo"
@@ -381,8 +434,8 @@ export default function Header({
         />
       </div>
 
-      {/* University name — centered */}
-      <div className="flex-1 flex flex-col items-center justify-center text-center">
+      {/* University name — left aligned */}
+      <div className="flex-1 flex flex-col justify-center text-left">
         <span
           style={{
             color: "#ffffff",
@@ -406,7 +459,7 @@ export default function Header({
         </span>
       </div>
 
-      {/* Right: bell · last login */}
+      {/* Right: language · calendar · bell · last login */}
       <div
         style={{
           display: "flex",
@@ -415,6 +468,12 @@ export default function Header({
           flexShrink: 0,
         }}
       >
+        {/* Localization Toggle */}
+        <LanguageSwitcher />
+
+        {/* Academic Calendar */}
+        <AcademicCalendarButton />
+
         {/* Notification bell */}
         <NotificationBell />
 

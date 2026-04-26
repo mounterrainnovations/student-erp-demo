@@ -9,21 +9,16 @@ export default async function LoginPage({
 }) {
   const params = await searchParams;
   const loggedOut = params.loggedOut === "true";
+
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        minHeight: "100vh",
-        backgroundColor: "#f0f4f5",
-      }}
-    >
+    <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh", backgroundColor: "#f0f4f5" }}>
+
       {/* Header */}
       <header
         style={{ backgroundColor: "#007B8A", height: 80 }}
         className="w-full flex items-center px-6 shrink-0"
       >
-        <div style={{ flexShrink: 0 }}>
+        <div style={{ flexShrink: 0, marginRight: 16 }}>
           <img
             src="/Barkatullah_University_logo.png"
             alt="University Logo"
@@ -32,33 +27,14 @@ export default async function LoginPage({
             style={{ objectFit: "contain", display: "block" }}
           />
         </div>
-
-        <div className="flex-1 flex flex-col items-center justify-center text-center">
-          <span
-            style={{
-              color: "#ffffff",
-              fontSize: "1.125rem",
-              fontWeight: 700,
-              lineHeight: 1.2,
-              letterSpacing: "0.01em",
-            }}
-          >
+        <div className="flex-1 flex flex-col justify-center text-left">
+          <span style={{ color: "#ffffff", fontSize: "1.125rem", fontWeight: 700, lineHeight: 1.2, letterSpacing: "0.01em" }}>
             Barkatullah Vishwavidyalaya
           </span>
-          <span
-            style={{
-              color: "rgba(255,255,255,0.8)",
-              fontSize: "0.75rem",
-              fontWeight: 400,
-              marginTop: 3,
-            }}
-          >
+          <span style={{ color: "rgba(255,255,255,0.8)", fontSize: "0.75rem", fontWeight: 400, marginTop: 3 }}>
             Hoshangabad Road, Bhopal (M.P.) — 462033
           </span>
         </div>
-
-        {/* Spacer to balance the logo */}
-        <div style={{ width: 52, flexShrink: 0 }} />
       </header>
 
       {/* Nav bar */}
@@ -66,134 +42,161 @@ export default async function LoginPage({
         style={{ backgroundColor: "#1a1a2e", height: 44 }}
         className="w-full flex items-center px-6 shrink-0"
       >
-        <span
-          style={{
-            color: "rgba(255,255,255,0.5)",
-            fontSize: "0.8rem",
-            letterSpacing: "0.04em",
-          }}
-        >
+        <span style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.8rem", letterSpacing: "0.04em" }}>
           Student Portal &rsaquo; Login
         </span>
       </nav>
 
-      {/* Main — centred login card */}
-      <main
-        style={{
-          flex: 1,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          padding: "40px 16px",
-        }}
-      >
+      {/* Main — two-column split */}
+      <main style={{ flex: 1, display: "flex", minHeight: 0 }}>
+
+        {/* ── Left panel: login form ───────────────────────────────── */}
         <div
           style={{
-            width: "100%",
-            maxWidth: 420,
+            width: "44%",
+            minWidth: 340,
+            backgroundColor: "#ffffff",
             display: "flex",
             flexDirection: "column",
-            gap: 24,
+            alignItems: "center",
+            justifyContent: "center",
+            padding: "48px 48px",
           }}
         >
-          {/* Logged-out banner */}
-          {loggedOut && (
-            <div
-              style={{
-                backgroundColor: "#d4f5e9",
-                border: "1px solid #a7f3d0",
-                borderRadius: 8,
-                padding: "12px 16px",
-                display: "flex",
-                alignItems: "center",
-                gap: 10,
-              }}
-            >
-              <CheckCircle2 size={16} color="#1a7a4a" style={{ flexShrink: 0 }} />
-              <span style={{ fontSize: "0.875rem", color: "#1a7a4a", fontWeight: 500 }}>
-                You have been logged out. Sign in again to continue.
-              </span>
-            </div>
-          )}
+          <div style={{ width: "100%", maxWidth: 380 }}>
 
-          {/* Card */}
-          <div
-            style={{
-              backgroundColor: "#ffffff",
-              border: "1px solid #e0e0e0",
-              borderRadius: 10,
-              boxShadow: "0 4px 16px rgba(0,0,0,0.08)",
-              padding: "36px 32px",
-            }}
-          >
-            {/* Card heading */}
-            <div style={{ marginBottom: 28, textAlign: "center" }}>
+            {/* Logged-out banner */}
+            {loggedOut && (
               <div
                 style={{
-                  width: 48,
-                  height: 48,
+                  backgroundColor: "#d4f5e9",
+                  border: "1px solid #a7f3d0",
+                  borderRadius: 8,
+                  padding: "12px 16px",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 10,
+                  marginBottom: 28,
+                }}
+              >
+                <CheckCircle2 size={16} color="#1a7a4a" style={{ flexShrink: 0 }} />
+                <span style={{ fontSize: "0.875rem", color: "#1a7a4a", fontWeight: 500 }}>
+                  You have been logged out. Sign in again to continue.
+                </span>
+              </div>
+            )}
+
+            {/* Welcome heading */}
+            <div style={{ marginBottom: 36 }}>
+              <div
+                style={{
+                  width: 52,
+                  height: 52,
                   borderRadius: "50%",
                   background: "#e6f7f9",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  margin: "0 auto 14px",
+                  marginBottom: 18,
                 }}
               >
-                <svg
-                  width="22"
-                  height="22"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="#007B8A"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#007B8A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
                   <circle cx="12" cy="7" r="4" />
                 </svg>
               </div>
-              <h1
-                style={{
-                  fontSize: "1.125rem",
-                  fontWeight: 700,
-                  color: "#1a1a2e",
-                  margin: 0,
-                }}
-              >
-                Student Login
+              <h1 style={{ fontSize: "1.5rem", fontWeight: 700, color: "#1a1a2e", margin: "0 0 6px 0" }}>
+                Welcome back
               </h1>
-              <p
-                style={{
-                  fontSize: "0.8rem",
-                  color: "#6b7280",
-                  margin: "6px 0 0",
-                }}
-              >
-                Sign in to access your student portal
+              <p style={{ fontSize: "0.875rem", color: "#6b7280", margin: 0 }}>
+                Sign in to your student portal to continue.
               </p>
             </div>
 
             <LoginForm />
-          </div>
 
-          {/* Help text */}
-          <p
+            {/* Help link */}
+            <p style={{ textAlign: "center", fontSize: "0.75rem", color: "#9ca3af", marginTop: 28 }}>
+              Having trouble?{" "}
+              <Link href="/student/helpdesk" style={{ color: "#007B8A", fontWeight: 500, textDecoration: "none" }}>
+                Contact Help Desk
+              </Link>
+            </p>
+          </div>
+        </div>
+
+        {/* ── Right panel: university image ────────────────────────── */}
+        <div
+          style={{
+            flex: 1,
+            position: "relative",
+            overflow: "hidden",
+          }}
+        >
+          <img
+            src="/bg.jpg"
+            alt="Barkatullah University Campus"
             style={{
-              textAlign: "center",
-              fontSize: "0.75rem",
-              color: "#6b7280",
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              objectPosition: "center",
+              display: "block",
+            }}
+          />
+          {/* Gradient overlay */}
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              background: "linear-gradient(135deg, rgba(0,123,138,0.55) 0%, rgba(26,26,46,0.65) 100%)",
+            }}
+          />
+          {/* Caption */}
+          <div
+            style={{
+              position: "absolute",
+              bottom: 40,
+              left: 40,
+              right: 40,
+              color: "#ffffff",
             }}
           >
-            Having trouble logging in?{" "}
-            <Link
-              href="/student/helpdesk"
-              style={{ color: "#007B8A", fontWeight: 500, textDecoration: "none" }}
+            <p
+              style={{
+                fontSize: "0.7rem",
+                fontWeight: 600,
+                letterSpacing: "0.12em",
+                textTransform: "uppercase",
+                color: "rgba(255,255,255,0.7)",
+                margin: "0 0 8px 0",
+              }}
             >
-              Contact Help Desk
-            </Link>
-          </p>
+              Student ERP System
+            </p>
+            <h2
+              style={{
+                fontSize: "1.6rem",
+                fontWeight: 700,
+                lineHeight: 1.25,
+                margin: "0 0 10px 0",
+              }}
+            >
+              Student Portal
+
+            </h2>
+            <p
+              style={{
+                fontSize: "0.875rem",
+                color: "rgba(255,255,255,0.75)",
+                margin: 0,
+                lineHeight: 1.6,
+                maxWidth: 420,
+              }}
+            >
+              Access your academic records, class schedules, fee details, and stay connected with the university's administrative resources all in one place.
+            </p>
+          </div>
         </div>
       </main>
 
@@ -201,15 +204,14 @@ export default async function LoginPage({
       <footer
         style={{
           backgroundColor: "#1a1a2e",
-          color: "rgba(255,255,255,0.5)",
+          color: "rgba(255,255,255,0.45)",
           fontSize: "0.72rem",
           textAlign: "center",
           padding: "10px 16px",
           flexShrink: 0,
         }}
       >
-        © {new Date().getFullYear()} Barkatullah Vishwavidyalaya, Bhopal. All rights
-        reserved.
+        © {new Date().getFullYear()} Barkatullah Vishwavidyalaya, Bhopal. All rights reserved.
       </footer>
     </div>
   );

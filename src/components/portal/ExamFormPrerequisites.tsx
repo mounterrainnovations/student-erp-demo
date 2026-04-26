@@ -249,16 +249,61 @@ export default function ExamFormPrerequisites({
 
               {/* Fixed info badge for competitive exams */}
               {isCompetitive && (
-                <div style={{
-                  width: "100%",
-                  backgroundColor: "#f9fafb", border: "1px solid #e5e7eb",
-                  borderRadius: 6, padding: "8px 14px",
-                  fontSize: "0.78rem", color: "#6b7280",
-                  display: "flex", alignItems: "center", gap: 7,
-                }}>
-                  <span style={{ fontSize: "1rem" }}>ℹ️</span>
-                  Exam date, session and syllabus are determined by the respective examination body.
-                  The centre above is for correspondence and admit card dispatch only.
+                <div style={{ width: "100%", display: "flex", flexDirection: "column", gap: 16 }}>
+                  <div style={{
+                    backgroundColor: "#f9fafb", border: "1px solid #e5e7eb",
+                    borderRadius: 6, padding: "8px 14px",
+                    fontSize: "0.78rem", color: "#6b7280",
+                    display: "flex", alignItems: "center", gap: 7,
+                  }}>
+                    <span style={{ fontSize: "1rem" }}>ℹ️</span>
+                    Exam date, session and syllabus are determined by the respective examination body.
+                    The centre above is for correspondence and admit card dispatch only.
+                  </div>
+
+                  {/* Prior Academic Qualifications Section */}
+                  <div style={{
+                    border: "1px solid #e5e7eb", borderRadius: 8, padding: "16px 20px",
+                    backgroundColor: "#ffffff",
+                  }}>
+                    <div style={{ fontSize: "0.85rem", fontWeight: 700, color: "#374151", marginBottom: 16, display: "flex", alignItems: "center", gap: 6 }}>
+                      Prior Academic Qualifications
+                    </div>
+                    
+                    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "16px 24px" }}>
+                      {/* Class 10th */}
+                      <div>
+                        <label style={labelStyle}>Class 10th Percentage / CGPA <Req /></label>
+                        <input type="text" placeholder="e.g. 85.5%" style={inputStyle} />
+                      </div>
+                      <div>
+                        <label style={labelStyle}>Class 10th Mark Sheet <Req /></label>
+                        <input type="file" style={fileInputStyle} />
+                      </div>
+
+                      {/* Class 12th */}
+                      <div>
+                        <label style={labelStyle}>Class 12th Percentage / CGPA <Req /></label>
+                        <input type="text" placeholder="e.g. 88.2%" style={inputStyle} />
+                      </div>
+                      <div>
+                        <label style={labelStyle}>Class 12th Mark Sheet <Req /></label>
+                        <input type="file" style={fileInputStyle} />
+                      </div>
+                      
+                      {/* Other Degrees */}
+                      <div>
+                        <label style={labelStyle}>Number of Other Degrees Completed</label>
+                        <SelectField value="0" onChange={() => {}} options={["0", "1", "2", "3+"]} />
+                      </div>
+
+                      {/* Other Details */}
+                      <div>
+                        <label style={labelStyle}>Other Exam Details / Pipeline Info</label>
+                        <input type="text" placeholder="Any additional context..." style={inputStyle} />
+                      </div>
+                    </div>
+                  </div>
                 </div>
               )}
             </div>
@@ -377,4 +422,17 @@ const readInputStyle: React.CSSProperties = {
 export const cardStyle: React.CSSProperties = {
   backgroundColor: "#ffffff", border: "1px solid #e0e0e0",
   borderRadius: 8, padding: "20px 24px", boxShadow: "0 2px 8px rgba(0,0,0,0.06)",
+};
+
+const inputStyle: React.CSSProperties = {
+  border: "1px solid #d1d5db", borderRadius: 7,
+  padding: "9px 12px", fontSize: "0.875rem",
+  color: "#1a1a2e", width: "100%", background: "#ffffff",
+  outline: "none", boxSizing: "border-box",
+};
+
+const fileInputStyle: React.CSSProperties = {
+  ...inputStyle,
+  padding: "6px 12px",
+  color: "#6b7280",
 };

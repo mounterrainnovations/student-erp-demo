@@ -141,11 +141,11 @@ function SidebarSection({
   isFirst,
 }: {
   section: SidebarSection;
-  isFirst: boolean;
+  isFirst: boolean; // kept for border-top suppression on first item
 }) {
   const pathname = usePathname();
   const isAnyChildActive = section.links.some((l) => pathname === l.href);
-  const [open, setOpen] = useState(isFirst || isAnyChildActive);
+  const [open, setOpen] = useState(isAnyChildActive);
 
   return (
     <div

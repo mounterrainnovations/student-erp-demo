@@ -1,8 +1,9 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { Search, CheckCircle2 } from "lucide-react";
+import { Search } from "lucide-react";
 import { pageSubtitleStyle, pageTitleStyle, sectionLabelStyle } from "./portalPageStyles";
+import PdfViewerModal from "./PdfViewerModal";
 
 type Notice = {
   id: string;
@@ -67,7 +68,7 @@ const NOTICES: Notice[] = [
 export default function NoticesContent() {
   const [cat, setCat] = useState<string>("All");
   const [q, setQ] = useState("");
-  const [toast, setToast] = useState("");
+  const [selected, setSelected] = useState<Notice | null>(null);
 
   const list = useMemo(() => {
     return NOTICES.filter((n) => {
@@ -76,11 +77,6 @@ export default function NoticesContent() {
       return true;
     });
   }, [cat, q]);
-
-  const openPdf = (n: Notice) => {
-    setToast(`Opening PDF for: ${n.title.slice(0, 48)}… (demo).`);
-    setTimeout(() => setToast(""), 2800);
-  };
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
@@ -155,8 +151,8 @@ export default function NoticesContent() {
             <li
               key={notice.id}
               className="notice-row"
-              onClick={() => openPdf(notice)}
-              onKeyDown={(e) => e.key === "Enter" && openPdf(notice)}
+              onClick={() => setSelected(notice)}
+              onKeyDown={(e) => e.key === "Enter" && setSelected(notice)}
               role="button"
               tabIndex={0}
               style={{
@@ -257,28 +253,12 @@ export default function NoticesContent() {
         For older circulars, contact the examination cell or the college academic section. (Demo prototype.)
       </p>
 
-      {toast && (
-        <div
-          style={{
-            position: "fixed",
-            bottom: 28,
-            right: 28,
-            backgroundColor: "#1a1a2e",
-            color: "#fff",
-            padding: "12px 18px",
-            borderRadius: 8,
-            fontSize: "0.875rem",
-            display: "flex",
-            alignItems: "center",
-            gap: 8,
-            zIndex: 9999,
-            maxWidth: 360,
-            boxShadow: "0 8px 24px rgba(0,0,0,0.18)",
-          }}
-        >
-          <CheckCircle2 size={16} color="#4ade80" style={{ flexShrink: 0 }} />
-          {toast}
-        </div>
+      {selected && (
+        <PdfViewerModal
+          title={selected.title}
+          date={selected.date}
+          onClose={() => setSelected(null)}
+        />
       )}
     </div>
   );

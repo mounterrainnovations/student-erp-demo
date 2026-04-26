@@ -1,28 +1,32 @@
-import { CreditCard } from "lucide-react";
+import { ClipboardCheck } from "lucide-react";
 import { cardStyle } from "./ExamFormPrerequisites";
 
 interface Props {
   confirmChecked: boolean;
   onConfirmChange: (v: boolean) => void;
-  onSubmit: () => void;
+  onReview: () => void;
+  extraFee?: number;
 }
 
-const FEES = [
-  { label: "Examination Fee", amount: 1200 },
-  { label: "Late Fee (if applicable)", amount: 0 },
-  { label: "Processing Fee", amount: 50 },
+const BASE_FEES = [
+  { label: "Examination Fee",         amount: 1200 },
+  { label: "University Development Fee", amount: 100 },
+  { label: "Sports & Cultural Fee",   amount: 50  },
+  { label: "Processing Fee",          amount: 50  },
+  { label: "Late Fee (if applicable)", amount: 0  },
 ];
 
-const TOTAL = FEES.reduce((s, f) => s + f.amount, 0);
+export default function FeeSummary({ confirmChecked, onConfirmChange, onReview, extraFee = 0 }: Props) {
+  const baseTotal = BASE_FEES.reduce((s, f) => s + f.amount, 0);
+  const grandTotal = baseTotal + extraFee;
 
-export default function FeeSummary({ confirmChecked, onConfirmChange, onSubmit }: Props) {
   return (
     <div>
       <div style={sectionLabelStyle}>Fee Summary &amp; Submission</div>
 
       <div style={cardStyle}>
-        {/* Fee rows */}
-        {FEES.map((fee) => (
+        {/* Base fee rows */}
+        {BASE_FEES.map((fee) => (
           <div
             key={fee.label}
             style={{
@@ -34,40 +38,73 @@ export default function FeeSummary({ confirmChecked, onConfirmChange, onSubmit }
             }}
           >
             <span style={{ fontSize: "0.875rem", color: "#374151" }}>{fee.label}</span>
-            <span style={{
-              fontSize: "0.875rem",
-              fontWeight: 500,
-              color: fee.amount === 0
-                ? "#9ca3af"
-                : fee.label.includes("Late")
-                ? "#ef4444"
-                : "#1a1a2e",
-            }}>
+            <span
+              style={{
+                fontSize: "0.875rem",
+                fontWeight: 500,
+                color:
+                  fee.amount === 0
+                    ? "#9ca3af"
+                    : fee.label.includes("Late")
+                    ? "#ef4444"
+                    : "#1a1a2e",
+              }}
+            >
               {fee.amount === 0 ? "—" : `₹ ${fee.amount.toLocaleString("en-IN")}`}
             </span>
           </div>
         ))}
 
+        {/* Extra subjects fee row — only shown when non-zero */}
+        {extraFee > 0 && (
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              padding: "9px 0",
+              borderBottom: "1px solid #f3f4f6",
+            }}
+          >
+            <span style={{ fontSize: "0.875rem", color: "#374151" }}>
+              Ex / Back Paper Fee
+            </span>
+            <span style={{ fontSize: "0.875rem", fontWeight: 500, color: "#d97706" }}>
+              + ₹ {extraFee.toLocaleString("en-IN")}
+            </span>
+          </div>
+        )}
+
         {/* Total */}
         <div style={{ borderTop: "2px solid #e0e0e0", margin: "10px 0 16px" }} />
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>
-          <span style={{ fontSize: "0.9375rem", fontWeight: 600, color: "#374151" }}>Total Payable</span>
-          <span style={{ fontSize: "1rem", fontWeight: 700, color: "#1a1a2e" }}>
-            ₹ {TOTAL.toLocaleString("en-IN")}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            marginBottom: 20,
+          }}
+        >
+          <span style={{ fontSize: "0.9375rem", fontWeight: 600, color: "#374151" }}>
+            Total Payable
+          </span>
+          <span style={{ fontSize: "1.125rem", fontWeight: 700, color: "#007B8A" }}>
+            ₹ {grandTotal.toLocaleString("en-IN")}
           </span>
         </div>
 
-        {/* Divider */}
         <div style={{ borderTop: "1px solid #e0e0e0", marginBottom: 16 }} />
 
         {/* Confirm checkbox */}
-        <label style={{
-          display: "flex",
-          alignItems: "flex-start",
-          gap: 9,
-          cursor: "pointer",
-          marginBottom: 16,
-        }}>
+        <label
+          style={{
+            display: "flex",
+            alignItems: "flex-start",
+            gap: 9,
+            cursor: "pointer",
+            marginBottom: 16,
+          }}
+        >
           <input
             type="checkbox"
             checked={confirmChecked}
@@ -82,14 +119,14 @@ export default function FeeSummary({ confirmChecked, onConfirmChange, onSubmit }
             }}
           />
           <span style={{ fontSize: "0.8125rem", color: "#374151", lineHeight: 1.5 }}>
-            I confirm that all details are correct and I wish to proceed
-            with examination form submission.
+            I confirm that all subject selections and personal details are correct,
+            and I wish to proceed with examination form submission.
           </span>
         </label>
 
-        {/* Submit button */}
+        {/* Review button */}
         <button
-          onClick={onSubmit}
+          onClick={onReview}
           disabled={!confirmChecked}
           className="submit-btn"
           style={{
@@ -102,16 +139,23 @@ export default function FeeSummary({ confirmChecked, onConfirmChange, onSubmit }
             color: confirmChecked ? "#ffffff" : "#9ca3af",
             border: "none",
             borderRadius: 8,
-            padding: "11px",
+            padding: "12px",
             fontSize: "0.9375rem",
             fontWeight: 600,
             cursor: confirmChecked ? "pointer" : "not-allowed",
             transition: "all 0.2s ease",
           }}
         >
-          <CreditCard size={16} />
-          Proceed to Payment →
+          <ClipboardCheck size={16} />
+          Review Submission →
         </button>
+
+        {/* Helper text */}
+        {confirmChecked && (
+          <p style={{ fontSize: "0.75rem", color: "#9ca3af", textAlign: "center", margin: "10px 0 0" }}>
+            You will be able to verify all details before payment is charged.
+          </p>
+        )}
       </div>
     </div>
   );
